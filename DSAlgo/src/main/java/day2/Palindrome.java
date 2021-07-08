@@ -1,4 +1,4 @@
-package day1;
+package day2;
 
 import org.junit.Test;
 
@@ -37,13 +37,17 @@ public class Palindrome {
 		
 		
 	 * Pseudocode
-	 * 	1) Yes, with any input value 
-	 *  2) positive -> 1232, 6 (single value)
-	 *     negative -> -183, empty value
-	 *     edge -> 16900
-	 *  3) yes  
-	 *  4) Not required
-	 *  5) Modulo operator, recursion
+	 * 	1) Check for sign of integer
+	 *  2) if negative, make it as positive
+	 *  3) Find the last digit of the integer using modulo operator to reverse
+	 *  4) Check for solutions --> Brute Force, Recursion 
+	 *  5) Update the value based on the sign of the input
+	 *  6) Compare the values and return true if matches
+	 *  
+	 *  Complexity:
+	 *  Time  - O(n)
+	 *  Space - O(1)
+	 * 
 	 */
 
 
@@ -52,20 +56,20 @@ public class Palindrome {
 	public  void test1()
 	{
 		int input= 4224;
-		boolean reverseInteger = reverseInteger(input);
-		System.out.println(reverseInteger);
+		boolean palindromeCheck = palindrome(input);
+		System.out.println(palindromeCheck);
 
-		Assert.assertEquals(true, reverseInteger);
+		Assert.assertEquals(true, palindromeCheck);
 	}
 	
 	@Test 
 	public  void test2()
 	{
 		int input= 12389;
-		boolean reverseInteger = reverseInteger(input);
-		System.out.println(reverseInteger);
+		boolean palindromeCheck = palindrome(input);
+		System.out.println(palindromeCheck);
 
-		Assert.assertEquals(false, reverseInteger);
+		Assert.assertEquals(false, palindromeCheck);
 	}
 
 	@Test 
@@ -73,42 +77,39 @@ public class Palindrome {
 	{
 		int input= -8998;
 		
-		boolean reverseInteger = reverseInteger(input);
-		System.out.println(reverseInteger);
-		Assert.assertEquals(true, reverseInteger);
+		boolean palindromeCheck = palindrome(input);
+		System.out.println(palindromeCheck);
+		Assert.assertEquals(true, palindromeCheck);
 	}
 	
 	@Test 
 	public  void test4()
 	{
-		int input= 0010;
+		int input= 010;
 		
-		boolean reverseInteger = reverseInteger(input);
-		System.out.println(reverseInteger);
+		boolean palindromeCheck = palindrome(input);
+		System.out.println(palindromeCheck);
 		
-		Assert.assertEquals(true, reverseInteger);
+		Assert.assertEquals(true, palindromeCheck);
 	}
 	
 
-	private boolean reverseInteger(int input) {
+	private boolean palindrome(int input) {
 		
 		boolean negativeInt = input<0?true:false;
 		int temp = input;
-	    if(negativeInt) 
-	    {
-	    	input = input * -1;
-	    }
-  
+	    if(negativeInt) input = input * -1;
+	    
 		if(input>0) 
 		{
 			val=val*10+input%10;
-			reverseInteger(input/10);
+			palindrome(input/10);
 		}
 
-		val =negativeInt == true? val*-1: val;
-		
+		val =negativeInt == true? val*-1: val;		
 		return val == temp? true:false;
 	}
 
+	
 
 }
