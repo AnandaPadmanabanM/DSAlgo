@@ -1,5 +1,12 @@
 package day1;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import org.junit.Test;
+
+import junit.framework.Assert;
+
 public class FindFirstDuplicate {
 	/*
 	 * 1)	Did I understand the problem? Yes or No !! 
@@ -38,9 +45,33 @@ public class FindFirstDuplicate {
 	 *  5) Brute force
 	 *   
 	 */
+
+	@Test
+  public void tc1() {
+	  int[] nums= {3,8,4,8,4,8,8};
+	  Integer n =8;
+	  Assert.assertEquals(findFirstDup(nums),n);
+  }
 	
-	public static void main(String[] args) {
+	@Test
+	  public void tc2() {
+		  int[] nums= {3,8,4,-7};
+		  Integer n =-1;
+		  Assert.assertEquals(findFirstDup(nums),n);
+	  }
+
+
+	private Integer findFirstDup(int[] nums) {
+		 
+		Set<Integer> set = new HashSet<>();
+		int i =0;
+		for ( i = 0; i < nums.length; i++) {
+			
+			if (!set.add(nums[i])) return nums[i];
+		}
 		
+		return -1;
 	}
+	
 
 }

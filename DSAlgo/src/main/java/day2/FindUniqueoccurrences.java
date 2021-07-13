@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-public class findUniqueoccurrences {
+public class FindUniqueoccurrences {
 
 	/*
     5) Given an array of integers arr, write a function that returns true if and only if the number of occurrences of each value in the array is unique.
@@ -15,12 +15,12 @@ Example 1:
 Input: arr = [1,2,2,1,1,3]
 Output: true
 Problem solving template
-1. Did I understand the problem? yes or no
+1. Did I understand the problem? yes 
         If no ask the person to provide with more details with examples
         If yes go to the next step
-        What is the input(s)? Input array
-        What is the expected output? boolean
-        Do I’ve constraints to solve the problem? 
+        What is the input(s)? String
+        What is the expected output? String
+        Do I’ve constraints to solve the problem? No expect
         Do Ive all the information to go to the next steps
         How big is your test data set will be?
 2. Test data set
@@ -61,7 +61,7 @@ Simple technique brute force
 		Assert.assertTrue( checkUniqueOccurrence(nums));
 	}
 	@Test
-	public void test2(){
+	public void test2(){ 
 		int[] nums={1,2,2,3,3,3,4,1};
 		boolean result= false;
 		Assert.assertFalse(checkUniqueOccurrence(nums));
