@@ -83,7 +83,7 @@ public class Problem3 {
 		 int round=1,sum1=0,sum2=0,left=0,right=nums.length-1;
 			while(left<=right) {
 				if(round%2==1) {
-					if(nums[left]>nums[right] && nums[left]> nums[right-1] || nums[left+1]<nums[right-1]) {
+					if((nums[left]>nums[right] && nums[left]> nums[right-1]) || nums[left+1]<nums[right-1]) {
 						sum1+=nums[left++];
 						round++;
 					}else {
