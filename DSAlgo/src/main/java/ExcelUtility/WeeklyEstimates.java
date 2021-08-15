@@ -124,7 +124,8 @@ public class WeeklyEstimates {
 			FileOutputStream out = new FileOutputStream(System.getProperty("user.dir")+outFileName);
 			wb.write(out);
 			wb.close();
-			findDifferenceBetweenValues("Consolidated on "+week,a,editColumns,outFileName);
+		//	findDifferenceBetweenValues("Consolidated on "+week,a,editColumns,outFileName);
+			findDifferenceBetweenWeekValues("Consolidated on "+week,a,editColumns,outFileName);
 			System.out.println("Done!!");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -174,6 +175,37 @@ public class WeeklyEstimates {
 					Cell cell2= row1.getCell(j+b);
 					String value2 = formatter.formatCellValue(cell2);	
 					int diff=Integer.parseInt(value2)-Integer.parseInt(value1);
+					s1.getRow(i).createCell(j+b).setCellType(CellType.NUMERIC);
+					s1.getRow(i).createCell(j+b).setCellValue(diff);
+					System.out.println(diff);
+
+				}
+			}		
+			FileOutputStream out1 = new FileOutputStream(System.getProperty("user.dir")+outputFile);
+			wb1.write(out1);
+			wb1.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+	}
+	
+	public static void findDifferenceBetweenWeekValues(String sheetName,int a , int b, String outputFile) {
+		try {  
+			FileInputStream in = new FileInputStream(System.getProperty("user.dir")+outputFile);
+			HSSFWorkbook wb1 = new HSSFWorkbook(in);
+			Sheet s1 = wb1.getSheet(sheetName);
+			int rowCount = s1.getLastRowNum();
+			int noOfColumns = s1.getRow(1).getLastCellNum();
+			DataFormatter formatter = new DataFormatter(); 
+			for (int i = 2; i<=rowCount; i++) {
+				for(int j=a; j<noOfColumns-b;j++) {			
+					Row row1 = s1.getRow(i);
+					Cell cell1= row1.getCell(j); 
+					String value1 = formatter.formatCellValue(cell1);
+					Cell cell2= row1.getCell(j-b);
+					String value2 = formatter.formatCellValue(cell2);	
+					int diff=Integer.parseInt(value1)-Integer.parseInt(value2);
 					s1.getRow(i).createCell(j+b).setCellType(CellType.NUMERIC);
 					s1.getRow(i).createCell(j+b).setCellValue(diff);
 					System.out.println(diff);
