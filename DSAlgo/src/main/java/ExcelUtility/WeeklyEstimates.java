@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 
 import org.apache.poi.EncryptedDocumentException;
@@ -36,21 +38,28 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class WeeklyEstimates {
 
-
+	
+	
 	public static void main(String[] args) throws FileNotFoundException, IOException   
 	{   
+		
+		//Add TimeStamp to the output File name
+		Date date = new Date();  
+		SimpleDateFormat formatter1 = new SimpleDateFormat("ddMMyyyyhhmmss");  
+		String strDate = formatter1.format(date);
+		String outFileName="\\Excel\\Output\\ConsolidatedEstimate_"+strDate+".xls";
 
 		try {
-			Workbook wb = WorkbookFactory.create(new File(System.getProperty("user.dir")+"\\Excel\\Input\\Test1.xls"));
+			Workbook wb = WorkbookFactory.create(new File(System.getProperty("user.dir")+"\\Excel\\Input\\InputSheet.xls"));
 			FormulaEvaluator evaluator = wb.getCreationHelper().createFormulaEvaluator(); 
 			int editColumns =5;
+			
 			//Get Week Detail from Data sheet
 			int activeSheetIndex = wb.getNumberOfSheets();
 			Sheet s1 = wb.getSheet("Data");
-			Row row = s1.getRow(1);
-			Cell cell= row.getCell(1);
+			Cell cell= s1.getRow(1).getCell(1);
 			String week = cell.getStringCellValue();
-			
+
 			//Find number of weeks
 			int a=0,length=week.length()-1;
 			String digit="";
@@ -62,14 +71,15 @@ public class WeeklyEstimates {
 			a=Integer.parseInt(digit);
 			int b=a;
 			a= 2+(editColumns*(a-1));
-			System.out.println("Consolidated (on week"+(b-1)+")");
+			System.out.println("Consolidated on Data_week"+(b-1));
+			
 			//Clone Last week Consolidated Sheet
-			int sheetIndex = wb.getSheetIndex("Consolidated (on week"+(b-1)+")");
+			int sheetIndex = wb.getSheetIndex("Consolidated on Data_week"+(b-1)); //Consolidated (on Data_week3)
 			wb.cloneSheet(sheetIndex);
-			wb.setSheetName(activeSheetIndex, "Consolidated (on "+week+" )");
+			wb.setSheetName(activeSheetIndex, "Consolidated on "+week);
 
 			//Copy Excel Values Within Sheets
-			Sheet s2 = wb.getSheet("Consolidated (on "+week+" )");
+			Sheet s2 = wb.getSheet("Consolidated on "+week);
 			int rowCount = s2.getLastRowNum();
 			int noOfColumns = s2.getRow(0).getLastCellNum();
 			DataFormatter formatter = new DataFormatter(); 
@@ -108,41 +118,49 @@ public class WeeklyEstimates {
 					}
 				}
 			}
-			
+
 			Sheet s3 = wb.getSheet(week);
-			copyExcelBetweenSheets(s3,s2,a,week);
-			FileOutputStream out = new FileOutputStream(System.getProperty("user.dir")+"\\Excel\\Output\\Test2.xls");
+			copyExcelValuesBetweenSheets(s3,s2,a,week);
+			FileOutputStream out = new FileOutputStream(System.getProperty("user.dir")+outFileName);
 			wb.write(out);
 			wb.close();
-			findDifferenceBetweenValues("Consolidated (on "+week+" )",a,editColumns);
+			findDifferenceBetweenValues("Consolidated on "+week,a,editColumns,outFileName);
 			System.out.println("Done!!");
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 
-	public static void copyExcelBetweenSheets(Sheet s1, Sheet s2, int a, String week) {
+	public static void copyExcelValuesBetweenSheets(Sheet s1, Sheet s2, int a, String week) {
 		int rowCount = s1.getLastRowNum();
 		int noOfColumns = s1.getRow(1).getLastCellNum();
+		int count=1;
 		DataFormatter formatter = new DataFormatter();
 		s2.getRow(0).getCell(a).setCellValue(week);
-		for (int i = 1; i<rowCount+1; i++) {			
-			for(int j=2; j<noOfColumns;j++) {			
-				Row row = s1.getRow(i);
-				Cell cell= row.getCell(j);
-				String value = formatter.formatCellValue(cell);
-				s2.getRow(i+1).getCell(j+(a-2)).setCellType(CellType.NUMERIC);
-				s2.getRow(i+1).getCell(j+(a-2)).setCellValue(value);
+		for (int i = 1; i<rowCount+1; i++) {
+			Cell cell3 = s2.getRow(i+1).getCell(0);	
+			String value2= formatter.formatCellValue(cell3);
+			for (int j = 1; j<rowCount+1; j++) {
+				Cell cell2 = s1.getRow(j).getCell(0);
+				String value1 = formatter.formatCellValue(cell2);
+				if(value1.equalsIgnoreCase(value2)) {
+					for (int k = 2; k<noOfColumns; k++) {
+						Row row = s1.getRow(j);
+						Cell cell= row.getCell(k);
+						String value = formatter.formatCellValue(cell);
+						s2.getRow(i+1).getCell(k+(a-2)).setCellType(CellType.NUMERIC);
+						s2.getRow(i+1).getCell(k+(a-2)).setCellValue(value);
+					}
+					break;
+				}
 			}
 		}
 	}
 
-	public static void findDifferenceBetweenValues(String sheetName,int a , int b) {
-
+	public static void findDifferenceBetweenValues(String sheetName,int a , int b, String outputFile) {
 		try {  
-			FileInputStream in = new FileInputStream(System.getProperty("user.dir")+"\\Excel\\Output\\Test2.xls");
+			FileInputStream in = new FileInputStream(System.getProperty("user.dir")+outputFile);
 			HSSFWorkbook wb1 = new HSSFWorkbook(in);
 			Sheet s1 = wb1.getSheet(sheetName);
 			int rowCount = s1.getLastRowNum();
@@ -159,13 +177,15 @@ public class WeeklyEstimates {
 					s1.getRow(i).createCell(j+b).setCellType(CellType.NUMERIC);
 					s1.getRow(i).createCell(j+b).setCellValue(diff);
 					System.out.println(diff);
+
 				}
-			}
-			FileOutputStream out1 = new FileOutputStream(System.getProperty("user.dir")+"\\Excel\\Output\\Test2.xls");
+			}		
+			FileOutputStream out1 = new FileOutputStream(System.getProperty("user.dir")+outputFile);
 			wb1.write(out1);
 			wb1.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+
 		}
 	}
 }
