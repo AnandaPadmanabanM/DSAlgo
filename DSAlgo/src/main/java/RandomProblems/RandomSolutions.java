@@ -56,6 +56,7 @@ public class RandomSolutions {
 			}
 		}
 		System.out.println(max);
+		
 		return max;
 	}
 }
