@@ -53,7 +53,7 @@ public class SPotProblem2 {
 	public void testData01() { // Positive
 		String input = "abbccaadf";
 		int[] target = {4,2,5,3,7};
-		Assert.assertEquals(findUniformUsingHashMap(input,target) ,new boolean[] {true, true, true, false, false});
+		Assert.assertEquals(findUniform(input,target) ,new boolean[] {true, true, true, false, false});
 
 	
 	}
