@@ -2,7 +2,7 @@ package RandomProblems;
 
 import org.junit.Test;
 
-public class SpotProblem6 {
+public class SpotProblem7 {
 	/*
 			Problem Statement
 			
@@ -33,8 +33,7 @@ public class SpotProblem6 {
 	// Test data(s)
 	@Test
 	public void testData01() { // Positive
-		String s = "oneTwoThree";
-		camelcase(s);
+	
 	}
 
 	@Test
@@ -44,16 +43,6 @@ public class SpotProblem6 {
 
 	@Test
 	public void testData03() { // Edge
-	
+		
 	}
-	
-	public int camelcase(String s) {
-	    // Write your code here
-		int count=0;
-	     for (int i = 0; i < s.length(); i++) {
-			if(Character.isUpperCase(s.charAt(i))) count++;			
-		}
-	     System.out.println(count);
-		return count+1;
-	    }	
 }

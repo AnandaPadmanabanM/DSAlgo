@@ -62,14 +62,14 @@ public class SPotProblem2 {
 	public void testData02() { // Negative
 		String input = "abdd";
 		int[] target = {5};
-		Assert.assertEquals(findUniformUsingHashMap(input,target) ,new boolean[] {false});
+		Assert.assertEquals(findUniform(input,target) ,new boolean[] {false});
 	}
 
 	@Test
 	public void testData03() { // Edge
 		String input = "abcd";
 		int[] target = {4};
-		Assert.assertEquals(findUniformUsingHashMap(input,target) ,new boolean[] {true});
+		Assert.assertEquals(findUniform(input,target) ,new boolean[] {true});
 	}
 
 	private boolean[] findUniform(String input, int[] target) {

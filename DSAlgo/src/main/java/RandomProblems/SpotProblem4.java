@@ -46,16 +46,23 @@ public class SpotProblem4 {
 	 * 
 	 * 
 	 * 5. Pseudocode
-	 * 1. Initialise low=0 & high=input.length pointers
-	 * 2. Check if the target hour is greater than input indices
-	 * 		a) target < input indices, return -1
-	 * 3. Check for the mim speed within a hour
-	 *      a)Initialise mid = high+ low/2;
-	 *      b) If input[mid]>input[mid+1], high=mid
-	 *      c)low = mid+1
-	 * 4. 
-	 * 
-	 */
+	 * /*
+	* Pseudo code - Binary Search
+	* Round off the hour value and assign it to range
+	* If range is less than train's length, return -1
+	* Initialize low as 1, high as range
+	* Traverse low <= high
+	* Find mid & Initialize sum as 0
+	* Traverse through the array until length - 1
+	* Divide each element by mid and assign it to temp
+	* Round off temp to next nearest integer and add it to the sum
+	* Divide the last digit with mid and add it to the sum
+	* If the sum == hour, return mid
+	* If sum < high, high = mid-1
+	* else low = mid+1
+	* Return -1
+*/
+	 
 
 	// Test data(s)
 	@Test
