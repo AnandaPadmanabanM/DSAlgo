@@ -26,7 +26,7 @@ Let's get started!! All the Best!!
 ✔️Binary Search
 ✔️Recursion
 
-Please feel free to reach me @ **LinkedIn**  https://www.linkedin.com/in/anandapadmanaban-sdet/
+Please feel free to reach me @ [LinkedIn](https://www.linkedin.com/in/anandapadmanaban-sdet/)
 
 If you like this repo, kindly fork/star it for the future updates!!
 
