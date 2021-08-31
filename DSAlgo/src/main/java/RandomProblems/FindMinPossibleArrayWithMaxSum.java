@@ -69,7 +69,6 @@ public class FindMinPossibleArrayWithMaxSum {
 			}
 	//		maxSum=Math.max(maxSum, windowSum);
 		}	
-		int maxSum1=maxSum;
 		return Arrays.copyOfRange(nums, startIndex, endIndex);
 	}
 
