@@ -74,7 +74,7 @@ public class PriceCheck {
 	 */
 	private int findSoldProductError(List<String> products, List<Float> productPrice, List<String> productsSold,
 			List<Float> soldPrice) {
-		Map<String, Float> map = new HashMap<>();
+		Map<String, Float> map = new HashMap<>();  
 		for (int i = 0; i < products.size(); i++) {
 			map.put(products.get(i), productPrice.get(i));
 		}
