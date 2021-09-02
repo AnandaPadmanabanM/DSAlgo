@@ -56,7 +56,7 @@ public class FindMinPossibleArrayWithMaxSum {
 			if(windowSum>prewindowSum) {
 			prewindowSum =windowSum;
 			endIndex=i;
-			}
+			} 
 			if(i == nums.length) break;
 			windowSum+=nums[i];
 			if(windowSum<=0 ) {
@@ -67,7 +67,6 @@ public class FindMinPossibleArrayWithMaxSum {
 				maxSum=windowSum;
 				startIndex=j;
 			}
-	//		maxSum=Math.max(maxSum, windowSum);
 		}	
 		return Arrays.copyOfRange(nums, startIndex, endIndex);
 	}
