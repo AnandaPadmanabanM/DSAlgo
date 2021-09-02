@@ -39,7 +39,7 @@ public class DuplicateRemovalKCharcaters {
 	public void testData01() { // Positive
 		String s = "deeedbbcccbdaae";
 		int k = 3;
-		Assert.assertTrue(removeDupKthCharacter(s,k).equals("aa"));
+		Assert.assertTrue(removeDupKthCharacter(s,k).equals("aae"));
 	}
 
 	private String removeDupKthCharacter(String s, int k) {
@@ -66,12 +66,9 @@ public class DuplicateRemovalKCharcaters {
 			}		
 		}				
 		for(int i=out.size();i>0;i--) {
-			Character pop = out.pop();
-			sb.insert(i,pop);
+			sb.append(out.pop());
 		}
-		System.out.println(sb.toString());
-		return sb.toString();
+		System.out.println(sb.reverse().toString());
+		return sb.reverse().toString();
 	}
-
-
 }
