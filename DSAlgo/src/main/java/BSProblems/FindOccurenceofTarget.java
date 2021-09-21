@@ -61,7 +61,7 @@ public class FindOccurenceofTarget {
 	}
 	
 	private int findnumberofOnesUsingPointer(int[] nums, int k) {
-
+		
 		int left=0,right=nums.length-1;
 		while(left<=right) {
 			if(nums[left]==1) return nums.length-left;
@@ -69,7 +69,7 @@ public class FindOccurenceofTarget {
 			left++;
 			right--;
 		}
-
+		
 		return 0;
 
 	}
