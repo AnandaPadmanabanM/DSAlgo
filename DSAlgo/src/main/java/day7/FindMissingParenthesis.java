@@ -55,7 +55,7 @@ public class FindMissingParenthesis {
 		for(Character ch:charArray){
 			if(!map.containsKey(ch)) {
 				stack.push(ch);
-			}
+			} 
 			else if(stack.isEmpty() || stack.pop() != map.get(ch))
 			  return stack.size();
 		}
