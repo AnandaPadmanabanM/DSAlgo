@@ -101,6 +101,7 @@ public class Trees {
         tree.addNode(node,4);
         tree.addNode(node,3);
         tree.findOtherNode(node, 3);
+     
       //  tree.preorderTraversal(node);
      //   tree.postOrderTraversal(node);
        // tree.levelOrderTraversal(node);
