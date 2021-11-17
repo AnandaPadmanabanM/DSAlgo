@@ -21,7 +21,7 @@ public class FindSubStringCount {
 	// Test data(s)
 	@Test
 	public void testData01() { // Positive
-		String input1="World is beautiful is";
+		String input1="World is beautiful";
 		String input2 ="is";
 		System.out.println(findSubStringCount(input1,input2));
 	}
